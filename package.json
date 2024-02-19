@@ -1,5 +1,5 @@
 {
-  "name": "@9gustin/react-notion-render",
+  "name": "@bill-oconnor/react-notion-render",
   "version": "3.11.3",
   "description": "A library to render notion content",
   "author": "9gustin",
@@ -11,7 +11,7 @@
   ],
   "license": "MIT",
   "repository": "9gustin/react-notion-render",
-  "homepage": "https://github.com/9gustin/react-notion-render/",
+  "homepage": "https://github.com/bill-oconnor/react-notion-render",
   "bugs": "https://github.com/9gustin/react-notion-render/issues",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
