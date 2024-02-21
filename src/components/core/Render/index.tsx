@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 import { NotionBlock } from '../../../types/NotionBlock'
 import { indexGenerator } from '../../../utils/indexGenerator'
@@ -28,38 +28,46 @@ function Render({
 }: Props) {
   if (!blocks || !blocks.length) return null
 
-  const render = useMemo(() => {
-    const renderBlocks = getBlocksToRender(blocks)
-    const index = indexGenerator(blocks)
+  const renderBlocks = getBlocksToRender(blocks)
+  const index = indexGenerator(blocks)
 
-    return renderBlocks.map((block) => {
-      const Component = block.getComponent(blockComponentsMapper)
+  const Wrapper = (props: PropsWithChildren<{ useStyles: boolean }>) => {
+    const { useStyles, children } = props
+    return useStyles ? (
+      <div className='rnr-container'>{children}</div>
+    ) : (
+      <React.Fragment>{children}</React.Fragment>
+    )
+  }
 
-      return Component
-        ? (
-        <Component
-          key={block.id}
-          classNames={Boolean(classNames)}
-          emptyBlocks={emptyBlocks}
-          block={block}
-          slugifyFn={slugifyFn}
-          mapPageUrlFn={mapPageUrlFn}
-          simpleTitles={simpleTitles}
-          index={index}
-          blockComponentsMapper={blockComponentsMapper}
-        />
+  return (
+    <Wrapper useStyles={!!useStyles}>
+      {renderBlocks.map((block) => {
+        const Component = block.getComponent(blockComponentsMapper)
+        if (!Component) {
+          throw Error(
+            `NO WAY ---- ${JSON.stringify(
+              blockComponentsMapper
+            )} ---- ${JSON.stringify(block)}`
           )
-        : null
-    })
-  }, [blocks])
+        }
 
-  return useStyles
-    ? (
-    <div className='rnr-container'>{render}</div>
-      )
-    : (
-    <React.Fragment>{render}</React.Fragment>
-      )
+        return Component ? (
+          <Component
+            key={block.id}
+            classNames={Boolean(classNames)}
+            emptyBlocks={emptyBlocks}
+            block={block}
+            slugifyFn={slugifyFn}
+            mapPageUrlFn={mapPageUrlFn}
+            simpleTitles={simpleTitles}
+            index={index}
+            blockComponentsMapper={blockComponentsMapper}
+          />
+        ) : null
+      })}
+    </Wrapper>
+  )
 }
 
 export default Render

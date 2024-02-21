@@ -28,7 +28,7 @@ export class ParsedBlock {
     language?: string
     hasColumnHeader?: boolean
     hasRowHeader?: boolean
-    cells?: (Text[])[]
+    cells?: Text[][]
   }
 
   constructor(initialValues: NotionBlock, isChild?: boolean) {
@@ -43,6 +43,9 @@ export class ParsedBlock {
     if (initialValues.type === blockEnum.TITLE && 'title' in initialValues) {
       this.items = null
       this.content = { text: initialValues.title }
+    } else if (initialValues.type === blockEnum.CHILD_PAGE) {
+      this.items = null
+      this.content = { text: [content.title] }
     } else if (this.isList() && !isChild) {
       this.content = null
       this.items = [new ParsedBlock(initialValues, true)]
@@ -86,7 +89,6 @@ export class ParsedBlock {
 
   getComponent(customMapper?: BlockComponentsMapperType) {
     const mapper = { ...BlockComponentsMapper, ...customMapper }
-
     return mapper[this.notionType]
   }
 
@@ -187,7 +189,7 @@ export class ParsedBlock {
     )
   }
 
-  supportCustomComponents () {
+  supportCustomComponents() {
     return !this.isCode()
   }
 }

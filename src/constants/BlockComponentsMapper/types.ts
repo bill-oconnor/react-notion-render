@@ -10,6 +10,7 @@ export type BlockComponentsMapperType = {
   [blockEnum.HEADING3]?: BlockComponent
   [blockEnum.DOTS_LIST]?: BlockComponent
   [blockEnum.ENUM_LIST]?: BlockComponent
+  [blockEnum.ENUM_LIST_PARENT]?: BlockComponent
   [blockEnum.CHECK_LIST]?: BlockComponent
   [blockEnum.TOGGLE_LIST]?: BlockComponent
   [blockEnum.VIDEO]?: BlockComponent
@@ -27,4 +28,5 @@ export type BlockComponentsMapperType = {
   [blockEnum.TABLE_ROW]?: BlockComponent
   [blockEnum.SYNCED_BLOCK]?: BlockComponent
   [blockEnum.BOOKMARK]?: BlockComponent
+  [blockEnum.CHILD_PAGE]?: BlockComponent
 }

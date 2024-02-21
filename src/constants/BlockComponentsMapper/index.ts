@@ -24,6 +24,7 @@ export const BlockComponentsMapper: BlockComponentsMapperType = {
   [blockEnum.HEADING3]: Title,
   [blockEnum.DOTS_LIST]: List,
   [blockEnum.ENUM_LIST]: List,
+  [blockEnum.ENUM_LIST_PARENT]: List,
   [blockEnum.CHECK_LIST]: List,
   [blockEnum.TOGGLE_LIST]: List,
   [blockEnum.VIDEO]: Video,
@@ -40,5 +41,6 @@ export const BlockComponentsMapper: BlockComponentsMapperType = {
   [blockEnum.TABLE]: Table,
   [blockEnum.TABLE_ROW]: undefined,
   [blockEnum.SYNCED_BLOCK]: undefined,
-  [blockEnum.BOOKMARK]: undefined
+  [blockEnum.BOOKMARK]: undefined,
+  [blockEnum.CHILD_PAGE]: undefined
 }

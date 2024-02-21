@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react'
+import React, { Fragment } from 'react'
 
 import { blockEnum } from '../../../../../types/BlockTypes'
 import withContentValidation, {
@@ -9,10 +9,16 @@ import styles from '../../styles.module.css'
 
 import Checkbox from '../Checkbox'
 
-function ListItem({ children, config, className, checked, blockComponentsMapper }: DropedProps) {
+function ListItem({
+  children,
+  config,
+  className,
+  checked,
+  blockComponentsMapper
+}: DropedProps) {
   const { notionType: type, items } = config.block
 
-  const renderChildren = useMemo(() => {
+  const Item = () => {
     if (type === blockEnum.CHECK_LIST) {
       return (
         <Fragment>
@@ -28,20 +34,22 @@ function ListItem({ children, config, className, checked, blockComponentsMapper 
             {items.map((block) => {
               const Component = block.getComponent(blockComponentsMapper)
 
-              return Component
-                ? (
+              return Component ? (
                 <Component {...config} key={block.id} block={block} />
-                  )
-                : null
+              ) : null
             })}
           </div>
         </details>
       )
     }
-    return children
-  }, [type, children, checked])
+    return <React.Fragment>{children}</React.Fragment>
+  }
 
-  return <li className={className}>{renderChildren}</li>
+  return (
+    <li className={className}>
+      <Item />
+    </li>
+  )
 }
 
 export default withContentValidation(ListItem)

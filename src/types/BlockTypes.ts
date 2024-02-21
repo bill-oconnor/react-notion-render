@@ -6,6 +6,7 @@ export enum blockEnum {
   TOGGLE_LIST = 'toggle',
   DOTS_LIST = 'bulleted_list_item',
   ENUM_LIST = 'numbered_list_item',
+  ENUM_LIST_PARENT = 'numbered_list',
   CHECK_LIST = 'to_do',
   TITLE = 'title',
   VIDEO = 'video',
@@ -22,6 +23,7 @@ export enum blockEnum {
   TABLE_OF_CONTENTS = 'table_of_contents',
   TABLE = 'table',
   TABLE_ROW = 'table_row',
+  CHILD_PAGE = 'child_page'
 }
 
 export const UNSUPPORTED_TYPE = 'unsupported'

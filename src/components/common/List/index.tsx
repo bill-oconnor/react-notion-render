@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 import { blockEnum } from '../../../types/BlockTypes'
 import withContentValidation, {
@@ -18,19 +18,22 @@ function List({ className, config }: DropedProps) {
       : ''
   } ${className}`
 
-  const renderList = useCallback(
-    (children: React.ReactNode) => {
-      if (type === blockEnum.ENUM_LIST) { return <ol className={cn}>{children}</ol> }
+  const Wrapper = (props: PropsWithChildren<{ type: blockEnum }>) => {
+    const { children, type } = props
 
-      return <ul className={cn}>{children}</ul>
-    },
-    [type]
-  )
+    return type === blockEnum.ENUM_LIST ? (
+      <ol className={cn}>{children}</ol>
+    ) : (
+      <ul className={cn}>{children}</ul>
+    )
+  }
 
-  return renderList(
-    items?.map((item) => (
-      <ListItem {...config} key={item.id} block={item} />
-    ))
+  return (
+    <Wrapper type={type}>
+      {items?.map((item) => (
+        <ListItem {...config} key={item.id} block={item} />
+      ))}
+    </Wrapper>
   )
 }
 
