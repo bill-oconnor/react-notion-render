@@ -21,7 +21,7 @@ function List({ className, config }: DropedProps) {
   const Wrapper = (props: PropsWithChildren<{ type: blockEnum }>) => {
     const { children, type } = props
 
-    return type === blockEnum.ENUM_LIST ? (
+    return type === blockEnum.ENUM_LIST_PARENT ? (
       <ol className={cn}>{children}</ol>
     ) : (
       <ul className={cn}>{children}</ul>
