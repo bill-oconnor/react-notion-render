@@ -8,6 +8,7 @@ import withContentValidation, {
 import styles from '../../styles.module.css'
 
 import Checkbox from '../Checkbox'
+import { Text } from '../../../../core/Text'
 
 function ListItem({
   children,
@@ -16,7 +17,7 @@ function ListItem({
   checked,
   blockComponentsMapper
 }: DropedProps) {
-  const { notionType: type, items } = config.block
+  const { notionType: type, items, content } = config.block
 
   const Item = () => {
     if (type === blockEnum.CHECK_LIST) {
@@ -42,7 +43,15 @@ function ListItem({
         </details>
       )
     }
-    return <React.Fragment>{children}</React.Fragment>
+    return content ? (
+      <div>
+        {content.text.map((text, index) => (
+          <Text key={index} {...text} />
+        ))}
+      </div>
+    ) : (
+      <p>{children}</p>
+    )
   }
 
   return (

@@ -47,13 +47,6 @@ function Render({
     <Wrapper useStyles={!!useStyles}>
       {renderBlocks.map((block) => {
         const Component = block.getComponent(blockComponentsMapper)
-        if (!Component) {
-          throw Error(
-            `NO WAY ---- ${JSON.stringify(
-              blockComponentsMapper
-            )} ---- ${JSON.stringify(block)}`
-          )
-        }
 
         return Component ? (
           <Component
