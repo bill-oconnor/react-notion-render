@@ -1,4 +1,5 @@
 import { blockEnum } from '..'
+import { ClassnamesType } from '../constants/BlockComponentsMapper/types'
 import Text from '../types/Text'
 
 const DEFAULT_COLOR = 'default'
@@ -16,4 +17,11 @@ export function getClassname(annotations: Text['annotations']) {
 
 export function blockTypeClassname(notionType: blockEnum) {
   return `rnr-${notionType}`
+}
+
+export function blockTypeCustomClassname(
+  notionType: blockEnum,
+  classnameMapping: ClassnamesType
+) {
+  return classnameMapping[notionType] || ''
 }

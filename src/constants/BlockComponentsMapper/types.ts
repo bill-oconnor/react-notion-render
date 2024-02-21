@@ -30,3 +30,5 @@ export type BlockComponentsMapperType = {
   [blockEnum.BOOKMARK]?: BlockComponent
   [blockEnum.CHILD_PAGE]?: BlockComponent
 }
+
+export type ClassnamesType = Partial<Record<blockEnum, string>>

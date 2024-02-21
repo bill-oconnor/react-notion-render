@@ -5,11 +5,17 @@ import { ParsedBlock, SimpleBlock } from '../../types/Block'
 import EmptyBlock from '../../components/common/EmptyBlock'
 import { getDefaultProps, getMediaProps } from './constants'
 import { slugify } from '../../utils/slugify'
-import { blockTypeClassname } from '../../utils/getClassname'
-import { BlockComponentsMapperType } from '../../constants/BlockComponentsMapper/types'
+import {
+  blockTypeClassname,
+  blockTypeCustomClassname
+} from '../../utils/getClassname'
+import {
+  BlockComponentsMapperType,
+  ClassnamesType
+} from '../../constants/BlockComponentsMapper/types'
 
 export interface WithContentValidationProps {
-  classNames?: boolean
+  classNames?: ClassnamesType
   emptyBlocks?: boolean
   block: ParsedBlock
   slugifyFn?: (text: string) => string
@@ -57,8 +63,12 @@ function withContentValidation(
       checked: false,
       children: null,
       plainText: '',
-      slugifyFn: simpleTitles ? null : (slugifyFn ?? slugify),
-      className: classNames ? blockTypeClassname(props.block.notionType) : undefined,
+      slugifyFn: simpleTitles ? null : slugifyFn ?? slugify,
+      className: classNames
+        ? `${blockTypeClassname(
+            props.block.notionType
+          )} ${blockTypeCustomClassname(props.block.notionType, classNames)}`
+        : undefined,
       config: {
         classNames: classNames,
         block: props.block,

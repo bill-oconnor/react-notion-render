@@ -3,12 +3,15 @@ import React, { PropsWithChildren } from 'react'
 import { NotionBlock } from '../../../types/NotionBlock'
 import { indexGenerator } from '../../../utils/indexGenerator'
 import getBlocksToRender from '../../../utils/getBlocksToRender'
-import { BlockComponentsMapperType } from '../../../constants/BlockComponentsMapper/types'
+import {
+  BlockComponentsMapperType,
+  ClassnamesType
+} from '../../../constants/BlockComponentsMapper/types'
 
 interface Props {
   blocks: NotionBlock[]
   useStyles?: boolean
-  classNames?: boolean
+  classNames?: ClassnamesType
   emptyBlocks?: boolean
   slugifyFn?: (text: string) => string
   mapPageUrlFn?: (input: any) => string
@@ -18,7 +21,7 @@ interface Props {
 
 function Render({
   blocks,
-  classNames,
+  classNames = {},
   emptyBlocks,
   useStyles,
   slugifyFn,
@@ -55,7 +58,7 @@ function Render({
         return Component ? (
           <Component
             key={block.id}
-            classNames={Boolean(classNames)}
+            classNames={classNames}
             emptyBlocks={emptyBlocks}
             block={block}
             slugifyFn={slugifyFn}
