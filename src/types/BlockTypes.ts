@@ -23,7 +23,8 @@ export enum blockEnum {
   TABLE_OF_CONTENTS = 'table_of_contents',
   TABLE = 'table',
   TABLE_ROW = 'table_row',
-  CHILD_PAGE = 'child_page'
+  CHILD_PAGE = 'child_page',
+  MENTION = 'mention'
 }
 
 export const UNSUPPORTED_TYPE = 'unsupported'

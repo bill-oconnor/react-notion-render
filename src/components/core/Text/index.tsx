@@ -8,7 +8,7 @@ import withCustomComponent from '../../../hoc/withCustomComponent'
 
 export function Text(props: IText) {
   const { text, annotations, type, href, plain_text, mapPageUrlFn } = props
-  const className = getClassname(annotations)
+  const annotationsClassName = getClassname(annotations)
 
   if (type === 'mention') {
     const redirectProps =
@@ -20,7 +20,11 @@ export function Text(props: IText) {
         : {}
 
     return (
-      <a className={`rnr-mention ${className}`} href={href} {...redirectProps}>
+      <a
+        className={`rnr-mention ${annotationsClassName}`}
+        href={href}
+        {...redirectProps}
+      >
         {plain_text}
       </a>
     )
@@ -30,19 +34,20 @@ export function Text(props: IText) {
 
   let element: ReactElement = <Fragment>{text.content}</Fragment>
 
-  if (className) element = <span className={className}>{text.content}</span>
+  if (annotationsClassName)
+    element = <span className={annotationsClassName}>{text.content}</span>
 
   // could havle multiple...
   if (annotations.bold) {
-    element = <strong className={className}>{text.content}</strong>
+    element = <strong className={annotationsClassName}>{text.content}</strong>
   } else if (annotations.code) {
-    element = <code className={className}>{text.content}</code>
+    element = <code className={annotationsClassName}>{text.content}</code>
   } else if (annotations.italic) {
-    element = <em className={className}>{text.content}</em>
+    element = <em className={annotationsClassName}>{text.content}</em>
   } else if (annotations.strikethrough) {
-    element = <s className={className}>{text.content}</s>
+    element = <s className={annotationsClassName}>{text.content}</s>
   } else if (annotations.underline) {
-    element = <u className={className}>{text.content}</u>
+    element = <u className={annotationsClassName}>{text.content}</u>
   }
 
   if (text.link) {
@@ -53,7 +58,7 @@ export function Text(props: IText) {
       url = mapPageUrlFn(url.slice(1))
     }
     element = (
-      <Link url={url} className={className}>
+      <Link url={url} className={`${annotationsClassName} rnr-link`}>
         {element}
       </Link>
     )

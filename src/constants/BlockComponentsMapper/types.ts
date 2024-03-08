@@ -29,6 +29,7 @@ export type BlockComponentsMapperType = {
   [blockEnum.SYNCED_BLOCK]?: BlockComponent
   [blockEnum.BOOKMARK]?: BlockComponent
   [blockEnum.CHILD_PAGE]?: BlockComponent
+  [blockEnum.MENTION]?: BlockComponent
 }
 
 export type ClassnamesType = Partial<Record<blockEnum, string>>
