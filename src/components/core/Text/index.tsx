@@ -5,12 +5,22 @@ import IText from '../../../types/Text'
 import { getClassname } from '../../../utils/getClassname'
 import Link from '../../common/Link'
 import withCustomComponent from '../../../hoc/withCustomComponent'
+import { BlockComponentsMapperType } from '../../../constants/BlockComponentsMapper/types'
+import { ParsedBlock } from '../../../types/Block'
+import { blockEnum } from '../../../types/BlockTypes'
 
-export function Text(props: IText) {
-  const { text, annotations, type, href, plain_text, mapPageUrlFn } = props
+type PropTypes = IText & {
+  blockComponentsMapper?: BlockComponentsMapperType
+  block?: ParsedBlock
+}
+// Need to get the component mapping into here
+// I want additional page info to be available...
+export const Text: React.FC<PropTypes> = (props: PropTypes) => {
+  const { block, blockComponentsMapper, ...textProps } = props
+  const { text, annotations, type, href, plain_text, mapPageUrlFn } = textProps
   const annotationsClassName = getClassname(annotations)
 
-  if (type === 'mention') {
+  if (type === blockEnum.MENTION) {
     const redirectProps =
       props.mention?.type === 'page'
         ? {
@@ -19,6 +29,14 @@ export function Text(props: IText) {
           }
         : {}
 
+    if (
+      block &&
+      blockComponentsMapper &&
+      blockComponentsMapper[blockEnum.MENTION]
+    ) {
+      const Component = blockComponentsMapper[blockEnum.MENTION]
+      return <Component block={block!} />
+    }
     return (
       <a
         className={`rnr-mention ${annotationsClassName}`}
