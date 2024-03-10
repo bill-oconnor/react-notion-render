@@ -13,8 +13,7 @@ type PropTypes = IText & {
   blockComponentsMapper?: BlockComponentsMapperType
   block?: ParsedBlock
 }
-// Need to get the component mapping into here
-// I want additional page info to be available...
+
 export const Text: React.FC<PropTypes> = (props: PropTypes) => {
   const { block, blockComponentsMapper, ...textProps } = props
   const { text, annotations, type, href, plain_text, mapPageUrlFn } = textProps
